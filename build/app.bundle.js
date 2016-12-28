@@ -45,7 +45,8 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	__webpack_require__(1);
-	module.exports = __webpack_require__(299);
+	__webpack_require__(299);
+	module.exports = __webpack_require__(300);
 
 
 /***/ },
@@ -8820,106 +8821,129 @@
 
 /***/ },
 /* 299 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	
-	var convertRates = function () {
+	var setRate = function () {
 	  var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee(from, to, quantity) {
-	    var url;
+	    var rate;
 	    return regeneratorRuntime.wrap(function _callee$(_context) {
 	      while (1) {
 	        switch (_context.prev = _context.next) {
 	          case 0:
+	            // Modify button property to loading
 	            changeBtnProperties(true);
-	            url = 'http://api.fixer.io/latest?base=' + from + '&symbols=' + to + '?app_id=e1a03227b2e444538bd8ed483a35da7b';
 	
-	            fetch(url).then(function (response) {
-	              return response.json().then(function (latest) {
-	                if (isValidRate(latest)) {
-	                  // Conversion Rocks
-	                  document.getElementById("conversion-rocks").style.visibility = "visible";
-	                  document.getElementById("currency-to-one-value").innerHTML = Object.values(latest.rates) + ' ' + to;
-	                  document.getElementById("currency-to-one-title").innerHTML = from;
+	            _context.prev = 1;
+	            _context.next = 4;
+	            return _rates2.default.convertRates(from, to, quantity);
 	
-	                  // Conversion value
-	                  document.getElementById("quantity-to").value = calcRate(quantity, Object.values(latest.rates));
-	                } else {
-	                  alert('Invalid conversion');
-	                  document.getElementById("conversion-rocks").style.visibility = "hidden";
-	                  document.getElementById("quantity-to").value = "";
-	                }
-	                changeBtnProperties(false);
-	              });
-	            }).catch(function (error) {
-	              console.log(error);
-	            });
+	          case 4:
+	            rate = _context.sent;
 	
-	          case 3:
+	
+	            // Successful conversion
+	            if (rate) {
+	              // Conversion Rocks
+	              document.getElementById("conversion-rocks").style.visibility = "visible";
+	              document.getElementById("currency-to-one-value").innerHTML = Object.values(rate.rates) + ' ' + to;
+	              document.getElementById("currency-to-one-title").innerHTML = from;
+	
+	              // Conversion value
+	              document.getElementById("quantity-to").value = _rates2.default.calcRate(quantity, Object.values(rate.rates));
+	            }
+	            // Error
+	            else {
+	                alert('Invalid conversion');
+	                document.getElementById("conversion-rocks").style.visibility = "hidden";
+	                document.getElementById("quantity-to").value = "";
+	              }
+	            _context.next = 12;
+	            break;
+	
+	          case 8:
+	            _context.prev = 8;
+	            _context.t0 = _context["catch"](1);
+	
+	            console.log(_context.t0);
+	            alert('Unexpected error');
+	
+	          case 12:
+	            _context.prev = 12;
+	
+	            // Modify button property to default
+	            changeBtnProperties(false);
+	            return _context.finish(12);
+	
+	          case 15:
 	          case "end":
 	            return _context.stop();
 	        }
 	      }
-	    }, _callee, this);
+	    }, _callee, this, [[1, 8, 12, 15]]);
 	  }));
 	
-	  return function convertRates(_x, _x2, _x3) {
+	  return function setRate(_x, _x2, _x3) {
 	    return _ref.apply(this, arguments);
 	  };
 	}();
 	
-	var getCurrencies = function () {
+	var setCurrencies = function () {
 	  var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2() {
-	    var url;
+	    var currencies, html;
 	    return regeneratorRuntime.wrap(function _callee2$(_context2) {
 	      while (1) {
 	        switch (_context2.prev = _context2.next) {
 	          case 0:
-	            url = 'https://openexchangerates.org/api/currencies.json';
+	            _context2.prev = 0;
+	            _context2.next = 3;
+	            return _rates2.default.currencies();
 	
-	            fetch(url).then(function (response) {
-	              return response.json().then(function (currencies) {
-	                var html = '';
-	                Object.keys(currencies).forEach(function (key) {
-	                  html += "<option value='" + key + "'>" + currencies[key] + "</option>";
-	                });
-	                document.getElementById("currency-from").innerHTML = html;
-	                document.getElementById("currency-to").innerHTML = html;
-	              });
-	            }).catch(function (error) {
-	              console.log(error);
+	          case 3:
+	            currencies = _context2.sent;
+	
+	
+	            // fetch it to html
+	            html = '';
+	
+	            Object.keys(currencies).forEach(function (key) {
+	              html += "<option value='" + key + "'>" + currencies[key] + "</option>";
 	            });
 	
-	          case 2:
+	            // set to interface
+	            document.getElementById("currency-from").innerHTML = html;
+	            document.getElementById("currency-to").innerHTML = html;
+	            _context2.next = 14;
+	            break;
+	
+	          case 10:
+	            _context2.prev = 10;
+	            _context2.t0 = _context2["catch"](0);
+	
+	            console.log(_context2.t0);
+	            alert('Unexpected error');
+	
+	          case 14:
 	          case "end":
 	            return _context2.stop();
 	        }
 	      }
-	    }, _callee2, this);
+	    }, _callee2, this, [[0, 10]]);
 	  }));
 	
-	  return function getCurrencies() {
+	  return function setCurrencies() {
 	    return _ref2.apply(this, arguments);
 	  };
 	}();
 	
+	var _rates = __webpack_require__(300);
+	
+	var _rates2 = _interopRequireDefault(_rates);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-	
-	var isValidRate = function isValidRate(fixerResponse) {
-	  var isValid = true;
-	  if (fixerResponse.error) isValid = false;else {
-	    if (Object.values(fixerResponse.rates).length > 0) isValid = true;else isValid = false;
-	  }
-	  return isValid;
-	};
-	
-	var isFloat = function isFloat(n) {
-	  return Number(n) === n && n % 1 !== 0;
-	};
-	
-	var calcRate = function calcRate(quantity, value) {
-	  return parseFloat(quantity) * parseFloat(value);
-	};
 	
 	var changeBtnProperties = function changeBtnProperties(isLoading) {
 	  if (isLoading) {
@@ -8936,13 +8960,121 @@
 	  var to = document.getElementById("currency-to").value;
 	  var quantity = document.getElementById("quantity-from").value;
 	
-	  convertRates(from, to, quantity);
+	  setRate(from, to, quantity);
 	  document.getElementById('btn-convert').disabled = false;
 	});
 	
 	// Initialize
-	getCurrencies();
+	setCurrencies();
 	document.getElementById("conversion-rocks").style.visibility = "hidden";
+
+/***/ },
+/* 300 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Rates = function () {
+		function Rates() {
+			_classCallCheck(this, Rates);
+		}
+	
+		_createClass(Rates, null, [{
+			key: 'isValidRate',
+			value: function isValidRate(fixerResponse) {
+				var isValid = true;
+				if (fixerResponse.hasOwnProperty("error")) isValid = false;else {
+					if (Object.values(fixerResponse.rates).length > 0) isValid = true;else isValid = false;
+				}
+				return isValid;
+			}
+		}, {
+			key: 'currencies',
+			value: function () {
+				var _ref = _asyncToGenerator(regeneratorRuntime.mark(function _callee() {
+					var currencies;
+					return regeneratorRuntime.wrap(function _callee$(_context) {
+						while (1) {
+							switch (_context.prev = _context.next) {
+								case 0:
+									_context.next = 2;
+									return fetch('https://openexchangerates.org/api/currencies.json');
+	
+								case 2:
+									currencies = _context.sent;
+									return _context.abrupt('return', currencies.json());
+	
+								case 4:
+								case 'end':
+									return _context.stop();
+							}
+						}
+					}, _callee, this);
+				}));
+	
+				function currencies() {
+					return _ref.apply(this, arguments);
+				}
+	
+				return currencies;
+			}()
+		}, {
+			key: 'convertRates',
+			value: function () {
+				var _ref2 = _asyncToGenerator(regeneratorRuntime.mark(function _callee2(from, to, quantity) {
+					var url, latest, latestJson;
+					return regeneratorRuntime.wrap(function _callee2$(_context2) {
+						while (1) {
+							switch (_context2.prev = _context2.next) {
+								case 0:
+									url = 'http://api.fixer.io/latest?base=' + from + '&symbols=' + to + '?app_id=e1a03227b2e444538bd8ed483a35da7b';
+									_context2.next = 3;
+									return fetch(url);
+	
+								case 3:
+									latest = _context2.sent;
+									_context2.next = 6;
+									return latest.json();
+	
+								case 6:
+									latestJson = _context2.sent;
+									return _context2.abrupt('return', this.isValidRate(latestJson) ? latestJson : false);
+	
+								case 8:
+								case 'end':
+									return _context2.stop();
+							}
+						}
+					}, _callee2, this);
+				}));
+	
+				function convertRates(_x, _x2, _x3) {
+					return _ref2.apply(this, arguments);
+				}
+	
+				return convertRates;
+			}()
+		}, {
+			key: 'calcRate',
+			value: function calcRate(quantity, value) {
+				return parseFloat(quantity) * parseFloat(value);
+			}
+		}]);
+	
+		return Rates;
+	}();
+	
+	exports.default = Rates;
 
 /***/ }
 /******/ ]);

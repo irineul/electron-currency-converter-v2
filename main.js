@@ -16,6 +16,8 @@ function createWindow () {
 
   win.setTitle(require('./package.json').name);
 
+  // Open the DevTools.
+  win.webContents.openDevTools()
 
   // and load the index.html of the app.
   win.loadURL(url.format({
