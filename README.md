@@ -6,12 +6,7 @@
 - Webpack
 
 ```
-npm install babel-core --save
-npm i -D babel-core
-npm install babel-loader babel-core babel-preset-es2015 webpack --save-dev
-npm install babel-polyfill
-npm i babel-plugin-transform-decorators-legacy
-npm i babel-plugin-transform-async-to-generator
+npm install 
 npm start
 ```
 
