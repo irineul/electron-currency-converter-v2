@@ -27,8 +27,6 @@ export default class Rates{
 	}
 
 
-
-
 	static calcRate(quantity, value){
 		return parseFloat(quantity)*parseFloat(value);
 	}
