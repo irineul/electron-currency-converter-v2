@@ -8965,8 +8965,8 @@
 	});
 	
 	// Initialize
-	setCurrencies();
 	document.getElementById("conversion-rocks").style.visibility = "hidden";
+	setCurrencies();
 
 /***/ },
 /* 300 */

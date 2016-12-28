@@ -81,5 +81,5 @@ document.getElementById('btn-convert').addEventListener('click', () => {
 
 
 // Initialize
-setCurrencies();
 document.getElementById("conversion-rocks").style.visibility = "hidden";
+setCurrencies();
